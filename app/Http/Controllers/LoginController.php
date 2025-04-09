@@ -2,77 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function index()
     {
         return view('masuk');
     }
 
-    public function otentikasi(Request $request)
-    {
-        $masuk = [
-            "NomorIndukPengguna" => $request->NomorIndukPengguna,
-            "NamaPertamaPengguna" => $request->NamaPertamaPengguna,
-            "NamaTerakhirPengguna" => $request->NamaTerakhirPengguna,
-            "SurelPengguna" => $request->SurelPengguna,
-            "KataSandiPengguna" => $request->KataSandiPengguna,
-            "NomorPonselPengguna" => $request->NomorPonselPengguna,
-            "TanggalLahirPengguna" => $request->TanggalLahirPengguna,
-            "FotoProfilPengguna" => $request->FotoProfilPengguna,
-            "TahunMasukPengguna" => $request->TahunMasukPengguna
-        ];
+    public function masuk(Request $request):RedirectResponse
+        {
 
-        Auth::attempt($masuk);
-            if (Auth::check()) {
-                $remember = true;
-                return redirect()->route('awal');
+        $credentials = $request->validate([
+            'SurelPengguna' => 'required|email',
+            'KataSandiPengguna'=> 'required|min:8'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            switch ($user->role) {
+                case 'Admin':
+                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                case 'Guru':
+                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                case 'Siswa':
+                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                default:
+                    Auth::logout();
+                    return redirect()->route('masuk')->withErrors(['SurelPengguna' => 'Pengguna tidak valid']);
             }
-            else {
-                return redirect()->back();
-            }
-    }
-
-    public function beranda(Request $request){
-        $masuk = [
-            "NomorIndukPengguna" => $request->NomorIndukPengguna,
-            "NamaPertamaPengguna" => $request->NamaPertamaPengguna,
-            "NamaTerakhirPengguna" => $request->NamaTerakhirPengguna,
-            "SurelPengguna" => $request->SurelPengguna,
-            "KataSandiPengguna" => $request->KataSandiPengguna,
-            "NomorPonselPengguna" => $request->NomorPonselPengguna,
-            "TanggalLahirPengguna" => $request->TanggalLahirPengguna,
-            "FotoProfilPengguna" => $request->FotoProfilPengguna,
-            "TahunMasukPengguna" => $request->TahunMasukPengguna
-        ];
-
-        Auth::attempt($masuk);
-        if (Auth::check()) {
-            $remember = true;
-            return redirect()->route('beranda');
         }
-        else {
-            return redirect()->back();
-        }
+        return redirect()->route('dashboard')->with('success', 'Selamat datang!');
     }
 
-    public function berandaLMS(){
-        return view('beranda');
-    }
-
-    public function keluar()
+    public function keluar(Request $request):RedirectResponse
     {
-        auth()->logout();
-        return redirect()->back();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('masuk');
     }
 }

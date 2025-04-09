@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Siswa;
 use Illuminate\Support\Facades\DB;
+use App\Models\Siswa;
 use App\Models\User;
 use App\Models\UlanganHarian;
 use App\Models\MataPelajaran;
 use App\Models\Pengumuman;
 use App\Models\Pembayaran;
 use App\Models\JadwalKelas;
+use App\Models\Chat;
 use App\Models\Forum;
 use App\Models\Ujian;
 use App\Models\TugasMandiri;
@@ -24,11 +25,11 @@ use Illuminate\Validation\Rule;
 class SiswaController extends Controller
 {
     public function __invoke(){
-        // 
+        //
     }
-    
+
     public function index(){
-        return view('siswa.beranda-siswa');
+        return view('dashboard');
     }
 
     public function kelas(){
@@ -37,7 +38,7 @@ class SiswaController extends Controller
 
     public function jadwalSiswa(JadwalKelas $jadwal){
         $IDJadwalKelas = $jadwal->id;
-        $dataJadwalKelas = JadwalKelas::find('IDJadwalKelas'); 
+        $dataJadwalKelas = JadwalKelas::find('IDJadwalKelas');
         return view('siswa.jadwal-kelas-bagi-siswa', compact('dataJadwalKelas'));
     }
 
@@ -53,36 +54,9 @@ class SiswaController extends Controller
         return view('siswa.sunting-profil-siswa');
     }
 
-    public function suntingProfilSiswa(Request $request):RedirectResponse
+    public function suntingProfilSiswa(Request $request)
     {
-        $request->validate([
-            'JenjangSiswa' => 'min: 3'->ignore($request->id),
-            'KelasSiswa' => 'min: 3'->ignore($request->id),
-            'FotoProfilPengguna' => 'mimes: png, jpg, jpeg | max:2048'->ignore($request->id),
-            'JurusanSiswa' => 'min: 3'->ignore($request->id)
-        ]);
-
-        $namaberkas = 'Profil Siswa '.time().Auth::user()->NomorIndukPengguna.'-'.Auth::user()->NamaPertamaPengguna.' '.Auth::user()->NamaTerakhirPengguna.'.'.$request->file('FotoProfilPengguna')->extension(); 
-        
-        $request->file('FotoProfilPengguna')->move(public_path('uploads/FotoProfilSiswa/'), $namaberkas);
-
-        if ($request->hasFile('FotoProfilPengguna')) {
-            $request->update([
-                'JenjangSiswa' => $request-> JenjangSiswa,
-                'KelasSiswa' => $request->KelasSiswa,
-                'JurusanSiswa' => $request->JurusanSiswa,
-                'FotoProfilPengguna'=> $namaberkas
-            ]->ignore($request->id));
-        }
-        else {
-            $request->update([
-                'JenjangSiswa' => $request-> JenjangSiswa,
-                'KelasSiswa' => $request->KelasSiswa,
-                'JurusanSiswa' => $request->JurusanSiswa,
-            ]->ignore($request->id));
-        }
-
-        return redirect()->route('siswa.profil-siswa')->with(['success'=>'Profil Anda telah diperbarui!']);
+        return redirect()->to('siswa.profil-siswa')->with(['success'=>'Profil Anda telah diperbarui!']);
     }
 
     public function pengumuman(){
@@ -118,23 +92,23 @@ class SiswaController extends Controller
         $IDUlanganHarian = $ulanganharian->IDUlanganHarian;
         $dataUlanganHarian = UlanganHarian::find($IDUlanganHarian);
         return view('mata_pelajaran.ulangan-harian-untuk-siswa', compact('dataUlanganHarian'));
-    }  
+    }
 
     public function tugasMandiri(TugasMandiri $tugasmandiri){
         $IDTugasMandiri = $tugasmandiri->IDTugasMandiri;
         $dataTugasMandiri = TugasMandiri::find($IDTugasMandiri);
         return view('mata_pelajaran.daftar-tugas-mandiri-khusus-siswa', compact('dataTugasMandiri'));
-    }  
+    }
 
     public function forum(Forum $forum){
         $IDForum = $forum->IDForum;
         $dataForum = Forum::find($IDForum);
         return view('mata_pelajaran.forum-untuk-siswa', compact('dataForum'));
-    }  
+    }
 
     public function obrolan(){
         return view('siswa.obrolan-siswa');
-    }  
+    }
 
     public function kolomObrolan(Chat $chat){
         $IDChat = $chat->IDChat;
@@ -178,7 +152,7 @@ class SiswaController extends Controller
     public function kelayakanUjianSiswa(Ujian $ujian, Request $request){
         $IDUjian = $ujian->id;
         $dataUjian = Ujian::find($IDUjian);
-        
+
         $request->validate([
             'KelayakanUjianSiswa' => 'boolean'
         ]);

@@ -18,17 +18,16 @@ use Illuminate\Support\Facades\DB;
 class PenggunaController extends Controller
 {
 
-    public function index()
+    public function index() {
+        return view('awal');
+    }
+    public function laman_daftar()
     {
         $peran = ["Admin", "Guru", "Siswa"];
         return view('daftar', compact('peran'));
     }
-    public function masuk()
-    {
-        return view('masuk');
-    }
 
-    public function daftar(Request $request)
+    public function create(Request $request)
     {
         User::create([
             'NamaPertamaPengguna' => $request->NamaPertamaPengguna,
@@ -42,44 +41,10 @@ class PenggunaController extends Controller
             'TahunMasukPengguna' => $request->TahunMasukPengguna,
         ]);
 
-        return redirect()->route('awal');
-    }
-
-    public function otentikasi(Request $request)
-    {
-
-    }
-
-    public function beranda(Request $request){
-        // $masuk = [
-        //     "NomorIndukPengguna" => $request->NomorIndukPengguna,
-        //     "NamaPertamaPengguna" => $request->NamaPertamaPengguna,
-        //     "NamaTerakhirPengguna" => $request->NamaTerakhirPengguna,
-        //     "SurelPengguna" => $request->SurelPengguna,
-        //     "KataSandiPengguna" => $request->KataSandiPengguna,
-        //     "NomorPonselPengguna" => $request->NomorPonselPengguna,
-        //     "TanggalLahirPengguna" => $request->TanggalLahirPengguna,
-        //     "FotoProfilPengguna" => $request->FotoProfilPengguna,
-        //     "TahunMasukPengguna" => $request->TahunMasukPengguna
-        // ];
-
-        // Auth::attempt($masuk);
-        // if (Auth::check()) {
-        //     $remember = true;
-        //     return redirect()->route('beranda');
-        // }
-        // else {
-        //     return redirect()->back();
-        // }
+        return redirect()->to('awal')->with('success', 'Pengguna Berhasil Didaftarkan!');
     }
 
     public function berandaLMS(){
         return view('beranda');
-    }
-
-    public function keluar()
-    {
-        // auth()->logout();
-        // return redirect()->back();
     }
 }

@@ -19,13 +19,13 @@ use Session;
 class GuruController extends Controller
 {
     public function __invoke(){
-        // 
+        //
     }
 
     public function index(){
-        return view('guru.beranda-guru');
+        return view('dashboard');
     }
-    
+
     public function periksaJawabanUjian(){
         return view('guru.periksa-jawaban-ujian');
     }
@@ -39,21 +39,21 @@ class GuruController extends Controller
     }
 
     public function revisiProfilGuru(Request $request){
-        $request->validate([
-            'NamaPertamaPengguna', 
-            'NamaTerakhirPengguna', 
-            'NomorIndukPengguna', 
-            'PeranPengguna',
-            'SurelPengguna', 
-            'NomorPonselPengguna', 
-            'TanggalLahirPengguna', 
-            'TahunMasukPengguna',
-            'MataPelajaran' => 'required | min: 3'->ignore($request->id),
-            'MataPelajaran2' => 'min: 3'->ignore($request->id),
-            'MataPelajaran3' => 'min: 3'->ignore($request->id),
-            'MataPelajaran4' => 'min: 3'->ignore($request->id),
-            'FotoProfilPengguna' => 'mimes: jpg, jpeg, png | max: 50000'->ignore($request->id)
-        ]);        
+        // $request->validate([
+        //     'NamaPertamaPengguna',
+        //     'NamaTerakhirPengguna',
+        //     'NomorIndukPengguna',
+        //     'PeranPengguna',
+        //     'SurelPengguna',
+        //     'NomorPonselPengguna',
+        //     'TanggalLahirPengguna',
+        //     'TahunMasukPengguna',
+        //     'MataPelajaran' => 'required | min: 3'->ignore($request->id),
+        //     'MataPelajaran2' => 'min: 3'->ignore($request->id),
+        //     'MataPelajaran3' => 'min: 3'->ignore($request->id),
+        //     'MataPelajaran4' => 'min: 3'->ignore($request->id),
+        //     'FotoProfilPengguna' => 'mimes: jpg, jpeg, png | max: 50000'->ignore($request->id)
+        // ]);
 
         $id = Auth::user()->id;
 
@@ -141,7 +141,7 @@ class GuruController extends Controller
                     'FotoProfilPengguna'=>$request->FotoProfilPengguna
                 ]);
             }
-            
+
             elseif ($request->has('MataPelajaran') AND $request->has('MataPelajaran2') AND $request->has('MataPelajaran3')
             AND $request->has('MataPelajaran4')) {
                 $namaBerkas= 'Foto Profil Guru '.$request->MataPelajaran.', '.$request->MataPelajaran2.', '.$request->MataPelajaran3.' dan '.$request->MataPelajaran4.'-'.$request->NomorIndukPengguna.'-'.$request->NamaPertamaPengguna.' '.$request->NamaTerakhirPengguna.' pada tanggal '.time().'.'.$request->file->extension();
@@ -255,7 +255,7 @@ class GuruController extends Controller
         return view('guru.kelas-guru');
     }
 
-    public function obrolan(){ 
+    public function obrolan(){
         return view('guru.obrolan-guru');
     }
 

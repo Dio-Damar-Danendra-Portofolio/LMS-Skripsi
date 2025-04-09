@@ -73,19 +73,19 @@
 
         <!-- Kanan -->
         <div class="col-md-6">
-            <form method="POST" action="{{ route('beranda') }}" class="px-4">
+            <form method="POST" action="aksi-masuk" class="px-4" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 mt-4">
-                    <label for="email" class="form-label">Surel (E-mail) pengguna:</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan Surel Anda" required>
+                    <label for="SurelPengguna" class="form-label">Surel (E-mail) Pengguna:</label>
+                    <input type="email" id="SurelPengguna" name="SurelPengguna" class="form-control" placeholder="Masukkan Surel Anda" required>
                 </div>
 
                 <div class="mb-4">
-                    <label for="password" class="form-label">Kata Sandi (Password) pengguna:</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan Kata Sandi Anda" required>
+                    <label for="KataSandiPengguna" class="form-label">Kata Sandi (Password) pengguna:</label>
+                    <input type="password" id="KataSandiPengguna" name="KataSandiPengguna" class="form-control" placeholder="Masukkan Kata Sandi Anda" required>
                 </div>
-
                 <button type="submit" class="btn btn-masuk">Masuk</button>
+                @csrf
             </form>
         </div>
     </div>

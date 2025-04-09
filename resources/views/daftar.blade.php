@@ -67,32 +67,32 @@ article {
             <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjuiljKk7PbaN6E7G5-ujouFXya1BLUuqfRxUBzyjEyEkq10xTP1SSu4qxSCMbxyiRKpniF6rz6-NEs1efNbzlKq8to07r4E7lizxfvL3_uKZSmkIs2KrCv5xxlNHmOrktr2EL2DbXf1yONwJY7LneP8ff7NBa1M1Y-viqUJHlfuUkx6jtkjWwOCoLA9Js" width="1017" height="270"  style="margin-left: 115px;" alt="Tidak ada gambar">
         </div>
         <div class="col-lg-6">
-            <a href=" {{ url()->previous() }} ">
-                <i class="bi bi"></i>
+            <a href=" {{ route('awal') }} ">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi5ojJjpYUH5dn5tIwCTXdcVhyiL2V7I5iPRjPc4N7-9dzfsy7P_WHKFJ374PBrEf75NqzfF-VeBEVUI2oNsmvz6F4Xi8Vn87K23N5rfKxAhO1yYeAWDfxoHMPiEYbOHgZ5nL8mdniyAiXw46TzEGMW5HyMYKOmv6dCQT9E5l_OwPM_IqsjTtBMtFl9QM4" style="width: 187px; height: 199px;" alt="Tidak ada gambar">
             </a>
         </div>
     </div>
   </header>
   <main>
-    <form action=" {{ route('daftar') }}" method="POST" enctype="multipart/form-data">
+    <form action="aksi-daftar" method="POST" enctype="multipart/form-data">
         @csrf
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-label" for="NamaPertamaPengguna">Nama Pertama Pengguna: </label><br/>
+            <label class="form-label" for="NamaPertamaPengguna">Nama Pertama Pengguna: <span class="text-danger">*</span></label><br/>
             <input class="form-control" type="text" id="NamaPertamaPengguna" name="NamaPertamaPengguna" placeholder="Masukkan Nama Pertama Anda" required>
         </div>
         <div class="col-lg-6">
             <label class="form-label" for="NamaTerakhirPengguna">Nama Terakhir Pengguna: </label><br/>
-            <input class="form-control" type="text" id="NamaTerakhirPengguna" name="NamaTerakhirPengguna" placeholder="Masukkan Nama Terakhir Anda" required>
+            <input class="form-control" type="text" id="NamaTerakhirPengguna" name="NamaTerakhirPengguna" placeholder="Masukkan Nama Terakhir Anda">
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-label" for="NomorIndukPengguna">Nomor Induk Pengguna: </label><br/>
+            <label class="form-label" for="NomorIndukPengguna">Nomor Induk Pengguna: <span class="text-danger">*</span></label><br/>
             <input class="form-control" type="text" placeholder="Masukkan Nomor Induk Pengguna" id="NomorIndukPengguna" name="NomorIndukPengguna" pattern="[0-9]{10}" required>
         </div>
         <div class="col-lg-6">
-            <label class="form-label" for="PeranPengguna">Peran Pengguna: </label><br/>
+            <label class="form-label" for="PeranPengguna">Peran Pengguna: <span class="text-danger">*</span></label><br/>
             <select id="PeranPengguna" name="PeranPengguna" required>
             <option value="">Pilih Peran</option>
             @foreach ($peran as $role)
@@ -103,27 +103,27 @@ article {
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-label" for="SurelPengguna">Surel (e-mail) Pengguna: </label><br/>
+            <label class="form-label" for="SurelPengguna">Surel (e-mail) Pengguna: <span class="text-danger">*</span></label><br/>
             <input class="form-control" placeholder="Masukkan Surel Anda!" type="email" id="SurelPengguna" name="SurelPengguna" required>
         </div>
         <div class="col-lg-6">
-            <label class="form-label" for="NomorPonselPengguna">Nomor Ponsel Pengguna: </label><br/>
+            <label class="form-label" for="NomorPonselPengguna">Nomor Ponsel Pengguna (Diawali 08): <span class="text-danger">*</span></label><br/>
             <input class="form-control" placeholder="Masukkan Nomor Ponsel Anda!" type="text" id="NomorPonselPengguna" name="NomorPonselPengguna" pattern="[0-9]{12}" required>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-label" for="KataSandiPengguna">Kata Sandi Pengguna: </label><br/>
+            <label class="form-label" for="KataSandiPengguna">Kata Sandi Pengguna: <span class="text-danger">*</span></label><br/>
             <input class="form-control" type="password" id="KataSandiPengguna" name="KataSandiPengguna" required>
         </div>
         <div class="col-lg-6">
-            <label class="form-label" for="TanggalLahirPengguna">Tanggal Lahir Pengguna</label><br/>
+            <label class="form-label" for="TanggalLahirPengguna">Tanggal Lahir Pengguna <span class="text-danger">*</span></label><br/>
             <input type="date" id="TanggalLahirPengguna" name="TanggalLahirPengguna" required>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <label class="form-label" for="TahunMasukPengguna">Tahun Masuk Pengguna: </label><br/>
+            <label class="form-label" for="TahunMasukPengguna">Tahun Masuk Pengguna: <span class="text-danger">*</span></label><br/>
             <input type="number" id="TahunMasukPengguna" name="TahunMasukPengguna" min="1000" max="999999" required></div>
         <div class="col-lg-6">
             <button type="submit" class="btn btn-warning" style="font-size: 30px; font-family: poppins;">Daftar</button>

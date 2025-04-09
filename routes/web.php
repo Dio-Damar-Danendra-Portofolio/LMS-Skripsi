@@ -43,37 +43,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('awal');
-});
+Route::get('/', [PenggunaController::class, 'index'])->name('awal');
+Route::get('/awal', [PenggunaController::class, 'index'])->name('awal');
+Route::get('daftar', [PenggunaController::class, 'laman_daftar'])->name('daftar');
+Route::post('aksi-daftar', [PenggunaController::class, 'create'])->name('aksi-daftar');
 
-Route::get('/dashboard', function () {
+Route::get('masuk', [LoginController::class, 'index'])->name('masuk');
+Route::post('aksi-masuk', [LoginController::class, 'masuk'])->name('aksi-masuk');
+
+Route::get('beranda', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
-Route::middleware('auth')->group(function () {
-    Route::get('beranda', [SiswaController::class, 'index'])->name("siswa.beranda-siswa");
-    Route::get('beranda', [GuruController::class, 'index'])->name("guru.beranda-guru");
-    Route::get('beranda', [AdminController::class, 'index'])->name("admin.beranda-admin");
-    Route::get('beranda', [LoginController::class, 'berandaLMS'])->name("beranda");
-    Route::post('beranda', [LoginController::class, 'beranda'])->name("masuk");
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-require __DIR__.'/auth.php';
 
-Route::get('awal', [HomeController::class, 'index'])->name("awal");
-
-Route::get('daftar', [PenggunaController::class, 'index'])->name("daftar");
-Route::post('daftar', [PenggunaController::class, 'daftar'])->name("mendaftar");
-
-Route::get('masuk', [PenggunaController::class, 'masuk'])->name("masuk");
-Route::post('otentikasi', [LoginController::class, 'otentikasi'])->name("otentikasi");
-
-Route::get('masuk', [PenggunaController::class, 'masuk'])->name("masuk");
-
+// Route::post('otentikasi', [LoginController::class, 'otentikasi'])->name("otentikasi");
 
 
 Route::get('keluar', [PenggunaController::class, 'keluar'])->name("keluar");

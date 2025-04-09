@@ -22,11 +22,11 @@ use Session;
 class AdminController extends Controller
 {
     public function __invoke(){
-        
+
     }
 
     public function index(){
-        return view('admin.beranda-admin');
+        return view('dashboard');
     }
 
     public function lihatPengumuman(Pengumuman $pengumuman){
@@ -62,7 +62,7 @@ class AdminController extends Controller
     public function pembayaran(){
         return view('admin.pengelola-pembayaran');
     }
-    
+
     public function inputPembayaran(){
         return view('admin.tambah-pembayaran');
     }
@@ -89,7 +89,7 @@ class AdminController extends Controller
     public function tambahMapel(){
         return view('admin.tambah-mata-pelajaran');
     }
- 
+
     public function pengelolaUjian(){
         $ujian = DB::table('Ujian')
         ->select('*')->first();
@@ -119,43 +119,41 @@ class AdminController extends Controller
 
     public function perbaruiProfilAdmin(Request $request, $pengguna){
 
-        $request->validate([
-            'NamaPertamaPengguna', 
-            'NamaTerakhirPengguna', 
-            'NomorIndukPengguna', 
-            'PeranPengguna',
-            'SurelPengguna', 
-            'NomorPonselPengguna', 
-            'TanggalLahirPengguna', 
-            'TahunMasukPengguna',
-            'DivisiAdmin' => 'min: 5',
-            'FotoProfilPengguna' => 'mimes: jpg, jpeg, png | max: 50000'
-        ]);
+        // $request->validate([
+        //     'NamaPertamaPengguna',
+        //     'NamaTerakhirPengguna',
+        //     'NomorIndukPengguna',
+        //     'PeranPengguna',
+        //     'SurelPengguna',
+        //     'NomorPonselPengguna',
+        //     'TanggalLahirPengguna',
+        //     'TahunMasukPengguna',
+        //     'DivisiAdmin' => 'min: 5',
+        //     'FotoProfilPengguna' => 'mimes: jpg, jpeg, png | max: 50000'
+        // ]);
 
-        $pengguna = Auth::user()->id
-        ->where('PeranPengguna', '=', 'Admin')
-        ->where('is_active', '=', 1);
+        // $pengguna = Auth::user()->id
+        // ->where('PeranPengguna', '=', 'Admin')
+        // ->where('is_active', '=', 1);
 
-        $admin = Admin::findOrFail($pengguna);
+        // $admin = Admin::findOrFail($pengguna);
 
-        $namaBerkas= 'Foto Profil Admin '.$request->DivisiAdmin.'-'.$request->NomorIndukPengguna.'-'.$request->NamaPertamaPengguna.' '.$request->NamaTerakhirPengguna.' pada tanggal '.time().'.'.$request->file->extension();
+        // $namaBerkas= 'Foto Profil Admin '.$request->DivisiAdmin.'-'.$request->NomorIndukPengguna.'-'.$request->NamaPertamaPengguna.' '.$request->NamaTerakhirPengguna.' pada tanggal '.time().'.'.$request->file->extension();
 
-        if ($request->hasFile('FotoProfilPengguna')) {
-            $fotoprofil = $request->file('FotoProfilPengguna');
-            $fotoprofil->storeAs('uploads/Foto-Profil-Admin', $namaBerkas);
+        // if ($request->hasFile('FotoProfilPengguna')) {
+        //     $fotoprofil = $request->file('FotoProfilPengguna');
+        //     $fotoprofil->storeAs('uploads/Foto-Profil-Admin', $namaBerkas);
 
-            Admin::delete('uploads/Foto-Profil-Admin'.$fotoprofil);
-            
-            $admin->update([
-                'FotoProfilPengguna' => $request->FotoProfilPengguna,
-                'DivisiAdmin' => $request->DivisiAdmin
-            ]);
-        }
-        else{
-            $admin->update([
-                'DivisiAdmin' => $request->DivisiAdmin
-            ]);
-        }
+        //     $admin->update([
+        //         'FotoProfilPengguna' => $request->FotoProfilPengguna,
+        //         'DivisiAdmin' => $request->DivisiAdmin
+        //     ]);
+        // }
+        // else{
+        //     $admin->update([
+        //         'DivisiAdmin' => $request->DivisiAdmin
+        //     ]);
+        // }
 
         return redirect()->route('admin.sunting-profil-admin')->with(['success' => 'Data Admin Berhasil Diubah!']);
     }
@@ -168,7 +166,7 @@ class AdminController extends Controller
     public function pengelolaMapel(){
         $matapelajaran = MataPelajaran::select('*');
         $kelas = Kelas::select('*');
-         
+
         return view('admin.pengelola-mata-pelajaran', compact('matapelajaran', 'kelas'));
     }
 }
