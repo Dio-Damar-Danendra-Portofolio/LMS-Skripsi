@@ -64,16 +64,16 @@
         <!-- Kiri -->
         <div class="col-md-6 text-center left-box">
             <a href="{{ url('/') }}">
-                <img class="logo mb-3" src="https://blogger.googleusercontent.com/img/a/AVvXsEgMYnxQkNg8jyuoaG92-p7hdTRwmlOhfTJ0m9FxXkJ9OOuZndFdWwMvmfzUJyWdTIwlobU0EXNEqfBuj2oGhlUrGB_vfMdizubAIw8eaA_S6n6PlpXeEtgM9QULveudGhtcN7hjFB_eCcRT8EqqG10GJp_OV6tAfkdmCaTp02OO0jAlzk45o8ArqZZISzg" alt="Logo EduSMA">
+                <img class="logo mb-3" width="790" height="100" src="https://blogger.googleusercontent.com/img/a/AVvXsEgMYnxQkNg8jyuoaG92-p7hdTRwmlOhfTJ0m9FxXkJ9OOuZndFdWwMvmfzUJyWdTIwlobU0EXNEqfBuj2oGhlUrGB_vfMdizubAIw8eaA_S6n6PlpXeEtgM9QULveudGhtcN7hjFB_eCcRT8EqqG10GJp_OV6tAfkdmCaTp02OO0jAlzk45o8ArqZZISzg" alt="Logo EduSMA">
             </a>
             <h5 class="mt-3">Selamat Datang!</h5>
-            <p>Belum mempunyai akun? Klik/ketuk tombol Daftar</p>
+            <p class="text-large">Belum mempunyai akun? Klik/ketuk tombol Daftar</p>
             <a href="{{ route('daftar') }}" class="btn btn-daftar">Daftar</a>
         </div>
 
         <!-- Kanan -->
         <div class="col-md-6">
-            <form method="POST" action="{{ route('masuk') }}" class="px-4">
+            <form method="POST" action="{{ route('beranda') }}" class="px-4">
                 @csrf
                 <div class="mb-3 mt-4">
                     <label for="email" class="form-label">Surel (E-mail) pengguna:</label>
@@ -90,7 +90,6 @@
         </div>
     </div>
 </div>
-
 <footer>
     EduSMA - Khusus anak SMA sederajat
 </footer>

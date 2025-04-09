@@ -27,6 +27,7 @@ class Pengguna extends Authenticatable
         'KataSandiPengguna',
         'NomorPonselPengguna',
         'TanggalLahirPengguna',
+        'PeranPengguna',
         'TahunMasukPengguna',
         'JenjangSiswa',
         'KelasSiswa',

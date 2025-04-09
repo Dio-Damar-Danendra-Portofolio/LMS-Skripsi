@@ -2,10 +2,17 @@
 <html lang="en">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * {
   box-sizing: border-box;
 }
+
+body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+        }
 
 /* Style the header */
 header {
@@ -13,6 +20,10 @@ header {
   padding: 10px;
   text-align: center;
   font-size: 35px;
+}
+
+form{
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
@@ -24,10 +35,12 @@ header {
 }
 
 footer {
-  background-color: white;
-  text-align: center;
-  color: black;
-}
+            margin-top: 30px;
+            background-color: #dae2f2;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
 
 article {
   -webkit-flex: 3;
@@ -79,11 +92,11 @@ article {
             <input class="form-control" type="text" placeholder="Masukkan Nomor Induk Pengguna" id="NomorIndukPengguna" name="NomorIndukPengguna" pattern="[0-9]{10}" required>
         </div>
         <div class="col-lg-6">
-            <label class="form-label" for="id_peran">Peran Pengguna: </label><br/>
-            <select id="id_peran" name="id_peran" required>
+            <label class="form-label" for="PeranPengguna">Peran Pengguna: </label><br/>
+            <select id="PeranPengguna" name="PeranPengguna" required>
             <option value="">Pilih Peran</option>
             @foreach ($peran as $role)
-            <option value="{{ $role->id }}">{{ $role->nama_peran }}</option>
+            <option value="{{ $role }}">{{ $role }}</option>
             @endforeach
             </select>
         </div>

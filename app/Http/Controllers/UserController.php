@@ -32,6 +32,7 @@ class UserController extends Controller
             'NamaTerakhirPengguna' => $request->NamaTerakhirPengguna,
             'NomorIndukPengguna' => $request->NomorIndukPengguna,
             'SurelPengguna' => $request->SurelPengguna,
+            'PeranPengguna' => $request->PeranPengguna,
             'NomorPonselPengguna' => $request->NomorPonselPengguna,
             'KataSandiPengguna' => $request->KataSandiPengguna,
             'TanggalLahirPengguna' => $request->TanggalLahirPengguna,

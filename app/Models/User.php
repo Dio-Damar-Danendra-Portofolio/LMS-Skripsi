@@ -40,6 +40,7 @@ class User extends Authenticatable
         'NomorPonselPengguna',
         'TanggalLahirPengguna',
         'TahunMasukPengguna',
+        'PeranPengguna',
         'JenjangSiswa',
         'KelasSiswa',
         'JurusanSiswa',

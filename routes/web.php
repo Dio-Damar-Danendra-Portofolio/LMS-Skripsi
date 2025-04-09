@@ -52,6 +52,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('beranda', [SiswaController::class, 'index'])->name("siswa.beranda-siswa");
+    Route::get('beranda', [GuruController::class, 'index'])->name("guru.beranda-guru");
+    Route::get('beranda', [AdminController::class, 'index'])->name("admin.beranda-admin");
+    Route::get('beranda', [LoginController::class, 'berandaLMS'])->name("beranda");
+    Route::post('beranda', [LoginController::class, 'beranda'])->name("masuk");
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -69,12 +74,7 @@ Route::post('otentikasi', [LoginController::class, 'otentikasi'])->name("otentik
 
 Route::get('masuk', [PenggunaController::class, 'masuk'])->name("masuk");
 
-Route::get('beranda', [LoginController::class, 'berandaLMS'])->name("beranda");
-Route::post('beranda', [LoginController::class, 'beranda'])->name("masuk");
 
-Route::get('beranda-siswa', [SiswaController::class, 'index'])->name("siswa.beranda-siswa");
-Route::get('beranda-guru', [GuruController::class, 'index'])->name("guru.beranda-guru");
-Route::get('beranda-admin', [AdminController::class, 'index'])->name("admin.beranda-admin");
 
 Route::get('keluar', [PenggunaController::class, 'keluar'])->name("keluar");
 
@@ -234,3 +234,10 @@ Route::get('pengelola-kelas/kelas-baru', [KelasController::class, 'tambahKelas']
 Route::get('pengelola-kelas/{IDKelas}/pratinjau', [KelasController::class, 'pratinjauKelas'])->name("admin.lihat-kelas");
 
 Route::get('pengelola-kelas/{IDKelas}/sunting', [KelasController::class, 'editKelas'])->name("admin.sunting-kelas");
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

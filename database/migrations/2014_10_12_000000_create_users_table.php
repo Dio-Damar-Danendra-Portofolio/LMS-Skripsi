@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_peran');
             $table->string('NomorIndukPengguna', 255);
             $table->string('NamaPertamaPengguna', 255);
             $table->string('NamaTerakhirPengguna', 255);
             $table->string('SurelPengguna', 255);
+            $table->string('PeranPengguna', 255);
             $table->string('KataSandiPengguna', 255)->unique();
             $table->string('NomorPonselPengguna', 255);
             $table->date('TanggalLahirPengguna');
-            $table->binary('FotoProfilPengguna')->nullable();
+            $table->string('FotoProfilPengguna')->nullable();
             $table->string('TahunMasukPengguna');
-            $table->foreign('id_peran')->references('id')->on('peran')->onUpdate('cascade')->onDelete('cascade');
             // $table->string('PencarianKelas', 255)->nullable();
             // $table->string('JenjangSiswa', 255)->nullable();
             // $table->string('KelasSiswa', 255)->nullable();

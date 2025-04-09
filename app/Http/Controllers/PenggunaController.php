@@ -20,7 +20,7 @@ class PenggunaController extends Controller
 
     public function index()
     {
-        $peran = Peran::all();
+        $peran = ["Admin", "Guru", "Siswa"];
         return view('daftar', compact('peran'));
     }
     public function masuk()
@@ -35,6 +35,7 @@ class PenggunaController extends Controller
             'NamaTerakhirPengguna' => $request->NamaTerakhirPengguna,
             'NomorIndukPengguna' => $request->NomorIndukPengguna,
             'SurelPengguna' => $request->SurelPengguna,
+            'PeranPengguna' => $request->PeranPengguna,
             'NomorPonselPengguna' => $request->NomorPonselPengguna,
             'KataSandiPengguna' => $request->KataSandiPengguna,
             'TanggalLahirPengguna' => $request->TanggalLahirPengguna,
