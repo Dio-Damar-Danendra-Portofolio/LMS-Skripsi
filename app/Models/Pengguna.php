@@ -61,9 +61,7 @@ class Pengguna extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'KataSandiPengguna' => 'hashed'
-    ];
+
 
     public function berperanSebagaiSiswa(){
         return $this->hasOne(Siswa::class);
