@@ -44,23 +44,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PenggunaController::class, 'index'])->name('awal');
-Route::get('/awal', [PenggunaController::class, 'index'])->name('awal');
+Route::get('awal', [PenggunaController::class, 'index'])->name('awal');
 Route::get('daftar', [PenggunaController::class, 'laman_daftar'])->name('daftar');
 Route::post('aksi-daftar', [PenggunaController::class, 'create'])->name('aksi-daftar');
 
 Route::get('masuk', [LoginController::class, 'index'])->name('masuk');
 Route::post('aksi-masuk', [LoginController::class, 'masuk'])->name('aksi-masuk');
 
-Route::get('beranda', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
-
-
+Route::get('beranda', [AdminController::class, 'index'])->name('admin.beranda-admin');
+Route::get('beranda', [GuruController::class, 'index'])->name('guru.beranda-guru');
+Route::get('beranda', [SiswaController::class, 'index'])->name('siswa.beranda-siswa');
 
 // Route::post('otentikasi', [LoginController::class, 'otentikasi'])->name("otentikasi");
-
-
-Route::get('keluar', [PenggunaController::class, 'keluar'])->name("keluar");
 
 Route::get('kelas', [GuruController::class,'kelas'])->name("guru.kelas-guru");
 Route::get('kelas-siswa', [SiswaController::class,'kelas'])->name("siswa.kelas-siswa");
