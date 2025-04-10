@@ -20,29 +20,24 @@ class LoginController extends Controller
     public function masuk(Request $request):RedirectResponse
         {
 
-        $credentials = $request->validate([
-            'SurelPengguna' => 'required|email',
-            'KataSandiPengguna'=> 'required|min:8'
-        ]);
-
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only('SurelPengguna', 'KataSandiPengguna'))) {
             $request->session()->regenerate();
 
             $user = Auth::user();
 
-            switch ($user->role) {
+            switch ($user->PeranPengguna) {
                 case 'Admin':
-                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                    return redirect()->route('beranda')->with('success', 'Selamat datang!');
                 case 'Guru':
-                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                    return redirect()->route('beranda')->with('success', 'Selamat datang!');
                 case 'Siswa':
-                    return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+                    return redirect()->route('beranda')->with('success', 'Selamat datang!');
                 default:
                     Auth::logout();
                     return redirect()->route('masuk')->withErrors(['SurelPengguna' => 'Pengguna tidak valid']);
             }
         }
-        return redirect()->route('dashboard')->with('success', 'Selamat datang!');
+        return redirect()->route('beranda')->with('success', 'Selamat datang!');
     }
 
     public function keluar(Request $request):RedirectResponse

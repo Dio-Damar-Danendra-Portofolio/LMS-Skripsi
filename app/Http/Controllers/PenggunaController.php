@@ -45,6 +45,6 @@ class PenggunaController extends Controller
     }
 
     public function berandaLMS(){
-        return view('dashboard');
+        return view('beranda');
     }
 }
