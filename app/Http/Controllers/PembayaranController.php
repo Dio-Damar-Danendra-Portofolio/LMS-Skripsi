@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
 {
-    
+
     public function index()
     {
         $dataPembayaran = Pembayaran::select('*');
@@ -30,7 +30,7 @@ class PembayaranController extends Controller
         $dataPembayaran = Pembayaran::select('*');
 
         $jumlahPembayaran = Pembayaran::select('*')->count();
-        
+
         return view('admin.pengelola-pembayaran', compact('dataPembayaran', 'jumlahPembayaran'));
     }
 
@@ -38,7 +38,7 @@ class PembayaranController extends Controller
         $IDPembayaran = $pembayaran->IDPembayaran;
         $rincian = Pembayaran::find($IDPembayaran);
         return view('pembayaran.rincian-pembayaran-siswa', compact('rincian'));
-    }  
+    }
 
     public function tambahPembayaran(){
         return view('admin.tambah-pembayaran');
@@ -54,9 +54,9 @@ class PembayaranController extends Controller
         $pembayaran->SisaPembayaran = $request->SisaPembayaran;
         $pembayaran->IDPengguna = $request->IDPengguna;
 
-        $request->SisaPembayaran = $request->NominalPembayaran - $UangyangDibayar;
-
         $UangyangDibayar = User::select('UangyangDibayar')->get();
+
+        $request->SisaPembayaran = $request->NominalPembayaran - $UangyangDibayar;
 
         $request->validate([
             'TanggalPembayaran' => 'required | date',
@@ -87,7 +87,7 @@ class PembayaranController extends Controller
     public function suntingPembayaran(Pembayaran $pembayaran){
         $IDPembayaran = $pembayaran->id;
         $dataPembayaran = Pembayaran::findOrFail($IDPembayaran);
-        return view('admin.sunting-pembayaran', compact('dataPembayaran')); 
+        return view('admin.sunting-pembayaran', compact('dataPembayaran'));
     }
 
     public function editPembayaran(Request $request, Pembayaran $pembayaran){
@@ -130,11 +130,11 @@ class PembayaranController extends Controller
         return redirect()->route('admin.edit-pembayaran')->with(['success' => 'Pembayaran berhasil di-update!']);
     }
 
-    public function hapusPembayaran(Pembayaran $pembayaran){
-        $IDPembayaran = $pembayaran->id;
-        $dataPembayaran = Pembayaran::findOrFail($IDPembayaran);
-        Pembayaran::delete($dataPembayaran);
-        $dataPembayaran->delete();
-        return redirect()->route('admin.pengelola-pembayaran')->with(['success' => 'Pembayaran berhasil dihapus!']);
-    }
+    // public function hapusPembayaran(Pembayaran $pembayaran){
+    //     $IDPembayaran = $pembayaran->id;
+    //     $dataPembayaran = Pembayaran::findOrFail($IDPembayaran);
+    //     Pembayaran::delete($dataPembayaran);
+    //     $dataPembayaran->delete();
+    //     return redirect()->route('admin.pengelola-pembayaran')->with(['success' => 'Pembayaran berhasil dihapus!']);
+    // }
 }

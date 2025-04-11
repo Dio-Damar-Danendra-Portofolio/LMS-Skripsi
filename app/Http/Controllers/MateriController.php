@@ -9,6 +9,7 @@ use App\Models\Guru;
 use App\Models\Daftar;
 use App\Models\Admin;
 use App\Models\Siswa;
+use App\Models\Absensi;
 use Illuminate\Support\Facades\DB;
 
 class MateriController extends Controller
@@ -90,10 +91,10 @@ class MateriController extends Controller
             'TautanZOOM' => 'url | regex:/\b(?:(?:https?|ftp):\/\/|zoom\.\us)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/g'
         ]);
 
-        $namaBerkasMateri = 'Materi '.time().'-'.$request->JudulMateri.'.'.$request->file('BerkasMateri')->extension();  
+        $namaBerkasMateri = 'Materi '.time().'-'.$request->JudulMateri.'.'.$request->file('BerkasMateri')->extension();
 
         $berkasMateri = $request->file('BerkasMateri')->storeAs('uploads/Berkas-Materi', $namaBerkasMateri);
-        
+
         $materiBaru->save();
 
         return redirect()->route('mata_pelajaran.isi-materi-guru')->with(['success' => 'Materi berhasil ditambahkan!']);
@@ -105,7 +106,7 @@ class MateriController extends Controller
 
     public function revisiMateri(Request $request, Materi $materi){
         $this->validate($request,[
-            'BerkasMateri' => 'mimes:pdf, pptx, pptm, doc, docx, docm, jpg, zip, rar, gz, 7z, ppt, 
+            'BerkasMateri' => 'mimes:pdf, pptx, pptm, doc, docx, docm, jpg, zip, rar, gz, 7z, ppt,
             jpeg, png| max:50000',
             'PeruntukanKelas' => 'min: 3',
             'JudulMateri' => 'min: 5',
@@ -128,7 +129,7 @@ class MateriController extends Controller
         $IDMateri = $materi->id;
         $dataMateri = Materi::findOrFail($IDMateri);
 
-        $namaBerkasMateri = 'Materi '.time().'-'.$request->JudulMateri.'-revisi.'.$request->file('BerkasMateri')->extension();  
+        $namaBerkasMateri = 'Materi '.time().'-'.$request->JudulMateri.'-revisi.'.$request->file('BerkasMateri')->extension();
 
         if ($request->hasFile('BerkasMateri')){
             $berkasMateriRevisi = $request->file('BerkasMateri')->storeAs('uploads/Materi', $namaBerkasMateri);
@@ -159,13 +160,13 @@ class MateriController extends Controller
             ]);
         }
         return redirect()->route('guru.perbarui-materi', ['materiPembelajaran'])->with(['success' => 'Materi berhasil diperbarui!']);
-    } 
-    
-    public function hapusMateri(Materi $materi){
-        $IDMateri = $materi->id;
-        $dataMateri = Materi::find($IDMateri);
-        Materi::delete($dataMateri);
-        $dataMateri->delete();
-        return view('mata_pelajaran.isi-materi-guru', compact('dataMateri'))->with(['success' => 'Materi berhasil dihapus!']);
     }
+
+    // public function hapusMateri(Materi $materi){
+    //     $IDMateri = $materi->id;
+    //     $dataMateri = Materi::find($IDMateri);
+    //     Materi::delete($dataMateri);
+    //     $dataMateri->delete();
+    //     return view('mata_pelajaran.isi-materi-guru', compact('dataMateri'))->with(['success' => 'Materi berhasil dihapus!']);
+    // }
 }

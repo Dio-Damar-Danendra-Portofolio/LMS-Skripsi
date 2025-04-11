@@ -23,6 +23,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+
+    if ($user->hasRole('Admin')) {
+        return redirect()->route('admin.beranda-admin');
+    }
+
+    if ($user->hasRole('Guru')) {
+        return redirect()->route('guru.beranda-guru');
+    }
+
+    if ($user->hasRole('Siswa')) {
+        return redirect()->route('siswa.beranda-siswa');
+    }
+
+    abort(403);
     }
 }

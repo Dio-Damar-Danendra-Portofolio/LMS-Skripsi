@@ -51,17 +51,13 @@ Route::post('aksi-daftar', [PenggunaController::class, 'create'])->name('aksi-da
 Route::get('masuk', [LoginController::class, 'index'])->name('masuk');
 Route::post('aksi-masuk', [LoginController::class, 'masuk'])->name('aksi-masuk');
 
-Route::get('beranda', [AdminController::class, 'index'])->name('admin.beranda-admin');
-Route::get('beranda', [GuruController::class, 'index'])->name('guru.beranda-guru');
-Route::get('beranda', [SiswaController::class, 'index'])->name('siswa.beranda-siswa');
-
-// Route::post('otentikasi', [LoginController::class, 'otentikasi'])->name("otentikasi");
+Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::get('kelas', [GuruController::class,'kelas'])->name("guru.kelas-guru");
 Route::get('kelas-siswa', [SiswaController::class,'kelas'])->name("siswa.kelas-siswa");
 Route::get('pengelola-kelas', [AdminController::class,'pengelolaKelas'])->name("admin.pengelola-kelas");
 
-Route::get('ujian/pengawasan-ujian/IDUjian', [SesiUjianController::class,'sesiUjian'])->name("guru.sesi-ujian");
+Route::get('ujian/pengawasan-ujian/{IDUjian}', [SesiUjianController::class,'sesiUjian'])->name("guru.sesi-ujian");
 
 Route::get('profil-admin', [AdminController::class,'biodataAdmin'])->name("admin.profil-admin");
 Route::get('profil-guru', [GuruController::class, 'biodataGuru'])->name("guru.profil-guru");
@@ -89,8 +85,8 @@ Route::get('pengelola-pengumuman', [PengumumanController::class, 'pengumuman'])-
 Route::post('pengumuman-terbaru', [PengumumanController::class, 'input'])->name("pengumuman-terbaru");
 
 Route::get('pengumuman-baru', [AdminController::class, 'inputPengumuman'])->name("admin.tambah-pengumuman");
-Route::get('pengumuman/IDPengumuman', [AdminController::class, 'lihatPengumuman'])->name("admin.lihat-pengumuman");
-Route::get('pengumuman/IDPengumuman/sunting', [PengumumanController::class, 'suntingPengumuman'])->name("admin.sunting-pengumuman");
+Route::get('pengumuman/{IDPengumuman}', [AdminController::class, 'lihatPengumuman'])->name("admin.lihat-pengumuman");
+Route::get('pengumuman/{IDPengumuman}/sunting', [PengumumanController::class, 'suntingPengumuman'])->name("admin.sunting-pengumuman");
 
 Route::get('rincian-pembayaran', [PembayaranController::class,'rincianPembayaran'])->name("pembayaran.rincian-pembayaran-siswa");
 Route::get('pembayaran', [SiswaController::class, 'pembayaran'])->name("siswa.pembayaran-khusus-siswa");
@@ -100,8 +96,8 @@ Route::post('pembayaran-terbaru', [PembayaranController::class, 'pembayaranBaru'
 
 Route::get('pembayaran-baru', [PembayaranController::class, 'tambahPembayaran'])->name("admin.tambah-pembayaran");
 
-Route::get('pembayaran/IDPembayaran', [AdminController::class, 'lihatPembayaran'])->name("pembayaran.lihat-pembayaran");
-Route::get('pembayaran/IDPembayaran/sunting', [PembayaranController::class, 'suntingPembayaran'])->name("admin.sunting-pembayaran");
+Route::get('pembayaran/{IDPembayaran}', [AdminController::class, 'lihatPembayaran'])->name("pembayaran.lihat-pembayaran");
+Route::get('pembayaran/{IDPembayaran}/sunting', [PembayaranController::class, 'suntingPembayaran'])->name("admin.sunting-pembayaran");
 
 Route::get('ujian', [SiswaController::class, 'ujian'])->name("siswa.ujian-siswa");
 Route::get('ujian/sesi-ujian/kelayakan', [SiswaController::class, 'sesiUjian'])->name("siswa.kelayakan-ujian-siswa");
@@ -127,7 +123,7 @@ Route::get('mapel/materi/tugas-mandiri/tugas-mandiri-baru', [TugasMandiriControl
 Route::get('mapel/materi/tugas-mandiri/sunting-tugas-mandiri', [TugasMandiriController::class,'suntingTugasMandiri'])->name("mata_pelajaran.sunting-tugas-mandiri");
 Route::get('mapel/materi/ulangan-harian', [UlanganHarianController::class,'untukGuru'])->name("mata_pelajaran.daftar-ulangan-harian-khusus-guru");
 Route::get('mapel/materi/ulangan-harian/ulangan-harian-baru', [UlanganHarianController::class,'tambahUlanganHarian'])->name("mata_pelajaran.ulangan-harian-baru");
-Route::get('mapel/materi/ulangan-harian/IDUlanganHarian/sunting', [UlanganHarianController::class,'tambahUlanganHarian'])->name("mata_pelajaran.ulangan-harian-baru");
+Route::get('mapel/materi/ulangan-harian/{IDUlanganHarian}/sunting', [UlanganHarianController::class,'tambahUlanganHarian'])->name("mata_pelajaran.ulangan-harian-baru");
 Route::get('mapel/ujian/semester', [GuruController::class,'periksaJawabanUjian'])->name("guru.periksa-jawaban-ujian");
 Route::get('mapel/materi', [MateriController::class, 'lihatMateri'])->name("mata_pelajaran.isi-materi-siswa");
 Route::get('mapel/materi/materi-khusus-guru', [MateriController::class, 'khususGuru'])->name("mata_pelajaran.isi-materi-guru");
